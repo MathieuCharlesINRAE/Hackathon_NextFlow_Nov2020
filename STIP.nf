@@ -40,5 +40,25 @@ process intersectVariantWithWindows {
 
 }
 
+process extractFastaFromSelectSNP {
+    conda "bioconda::bedtools"
+    
+    input:
+    file genome from genome_ch 
+    file snp from intersectVariantWithWindowsOut
+    
+    output:
+    file 'snp.filteredByWindows.fasta' into intersectVariantWithWindowsFastaOut
+    
+    script:
+    """
+    awk '{print \$1"\t"\$2-14"\t"\$2+14;}' $snp > $snp"_modif"
+    bedtools getfasta -fi $genome -bed $snp"_modif" | paste - -  > $snp"_modif2"
+    paste $snp $snp"_modif2" > snp.filteredByWindows.fasta
+    """
+}
+
 //generateWindowsFromGtfOut.view()
-intersectVariantWithWindowsOut.view()
+//intersectVariantWithWindowsOut.view()
+intersectVariantWithWindowsFastaOut.view()
+
