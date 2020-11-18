@@ -6,13 +6,16 @@ genome_ch = Channel.fromPath(params.genome)
 params.gtf  = 'genome/genome.chr1.1M.gtf'
 gtf_ch = Channel.fromPath(params.gtf)
 
+params.snp  = 'snp/bos_taurus.SNP.biallelic.100k.bed'
+snp_ch = Channel.fromPath(params.snp)
+
 
 process generateWindowsFromGtf {
     input:
     file genome from gtf_ch
     
     output:
-    file 'windows.bed' into generateWindowsFromGtfout
+    file 'windows.bed' into generateWindowsFromGtfOut
 
     shell:
     '''
@@ -20,9 +23,22 @@ process generateWindowsFromGtf {
     '''
 }
 
-//process intersectVariantWithWindows {
+process intersectVariantWithWindows {
+    conda "bioconda::bedtools"
+    
+    input:
+    file windows from generateWindowsFromGtfOut
+    file snp from snp_ch
+    
+    output:
+    file 'snp.filteredByWindows.bed' into intersectVariantWithWindowsOut
+    
+    script:
+    """
+    bedtools intersect -a $snp -b $windows > snp.filteredByWindows.bed
+    """
 
+}
 
-//}
-
-generateWindowsFromGtfout.view()
+//generateWindowsFromGtfOut.view()
+intersectVariantWithWindowsOut.view()
