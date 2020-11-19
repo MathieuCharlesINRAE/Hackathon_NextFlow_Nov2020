@@ -14,6 +14,8 @@ The goal is to identified SNP that have impact on transcription factor binding s
 
 * How it works
 
+[STIP_flow_chart](STIP_detailed.jpg)
+
 step1:
 select variant in regulatory regions. We could either provide known region or by default STIP will extract 2kb upstream region from genes start.
 
