@@ -1,8 +1,25 @@
 # Hackathon_NextFlow_Nov2020
 
-**Goal**
+**Goal : Find regulatory SNP candidate (rSNP)**
 
-The goal is to identified SNP that have impact on transcription factor binding site.
+Does the SNP impact the surrounding sequence affinity with a TF ? (likelihood the TF will bind with this sequence)
+
+* Principle
+step1:
+We expect to find rSNP candidate in a 2kb window upstream of TSS start. We filter the SNP file, keeping only the corresponding SNP.
+(Bedtools intersect)
+
+step2:
+For each filtered SNP, we create ref and alt sequences correponding to SNP ref and alt base and its surrounding sequences (+/- 14bp)
+(Bedtools getfasta)
+
+step3:
+matrices download from existing database (TRANSFAC,JASPAR, HOCOMOCO) and preparation (PWM <-> PFM)
+
+step4:
+For each filtered SNP, we compare the ref and alt sequences to each TF matrices
+- does ref and/or alt sequence have a strong affinity with TF (putative TFBS)?
+- does the SNP impact the putative TFBS ?
 
 * inputs
     - Genome reference file: Fasta and annotation in GTF file
@@ -12,19 +29,7 @@ The goal is to identified SNP that have impact on transcription factor binding s
 * outputs
     - TSV file with regulatory variant, and metadata such as TFBS name, score of affinity, impacting score
 
-* How it works
+* Flowchart
 
 ![STIP_flow_chart](STIP_detailed.jpg)
-
-step1:
-select variant in regulatory regions. We could either provide known region or by default STIP will extract 2kb upstream region from genes start.
-
-step2:
-extract flanking sequences 14 bp from both side.
-
-step3: 
-conversion of TFBS PWM matrices into PFM matrices.
-
-step4: 
-each sequence (and its mutated version) in each strand will be compared to each PFM matrice. An afinitiy signal is computed and if the signal is significant a ratio is compute to evaluate the impact of the variant on this TFBS
 
