@@ -5,21 +5,22 @@
 Does the SNP impact the surrounding sequence affinity with a TF ? (likelihood the TF will bind with this sequence)
 
 * Principle
-step1:
+
+step1:  
 We expect to find rSNP candidate in a 2kb window upstream of TSS start. We filter the SNP file, keeping only the corresponding SNP.
 (Bedtools intersect)
 
-step2:
+step2:  
 For each filtered SNP, we create ref and alt sequences correponding to SNP ref and alt base and its surrounding sequences (+/- 14bp)
 (Bedtools getfasta)
 
-step3:
+step3:  
 matrices download from existing database (TRANSFAC,JASPAR, HOCOMOCO) and preparation (PWM <-> PFM)
 
-step4:
-For each filtered SNP, we compare the ref and alt sequences to each TF matrices
-- does ref and/or alt sequence have a strong affinity with TF (putative TFBS)?
-- does the SNP impact the putative TFBS ?
+step4:  
+For each filtered SNP, we compare the ref and alt sequences to each TF matrices  
+Does ref and/or alt sequence have a strong affinity with TF (putative TFBS)?  
+Does the SNP impact the putative TFBS ?  
 
 * inputs
     - Genome reference file: Fasta and annotation in GTF file
