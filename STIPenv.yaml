@@ -1,0 +1,10 @@
+name: stip3
+channels:
+  - conda-forge
+  - bioconda
+  - eumetsat
+  - defaults
+dependencies:
+  - perl-bioperl
+  - pdl
+  
