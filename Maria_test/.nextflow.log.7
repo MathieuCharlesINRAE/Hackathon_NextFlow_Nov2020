@@ -1,0 +1,39 @@
+Nov-19 16:32:52.463 [main] DEBUG nextflow.cli.Launcher - $> nextflow run do_not_resume.nf
+Nov-19 16:32:52.638 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 20.10.0
+Nov-19 16:32:52.655 [main] INFO  nextflow.cli.CmdRun - Launching `do_not_resume.nf` [dreamy_swanson] - revision: c2f01ddf8e
+Nov-19 16:32:52.874 [main] DEBUG nextflow.Session - Session uuid: 5fde17f0-5eb5-43d4-950b-2efd0c688c47
+Nov-19 16:32:52.874 [main] DEBUG nextflow.Session - Run name: dreamy_swanson
+Nov-19 16:32:52.880 [main] DEBUG nextflow.Session - Executor pool size: 2
+Nov-19 16:32:52.903 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 20.10.0 build 5430
+  Created: 01-11-2020 15:14 UTC 
+  System: Linux 4.14.203-116.332.amzn1.x86_64
+  Runtime: Groovy 3.0.5 on OpenJDK 64-Bit Server VM 1.8.0_265-b01
+  Encoding: UTF-8 (UTF-8)
+  Process: 22956@ip-172-30-3-129 [172.30.3.129]
+  CPUs: 2 - Mem: 3.9 GB (2.7 GB) - Swap: 488.3 MB (488.3 MB)
+Nov-19 16:32:52.942 [main] DEBUG nextflow.Session - Work-dir: /home/ec2-user/environment/hackathon/Hackathon_NextFlow_Nov2020/Maria_test/work [ext2/ext3]
+Nov-19 16:32:52.943 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /home/ec2-user/environment/hackathon/Hackathon_NextFlow_Nov2020/Maria_test/bin
+Nov-19 16:32:53.011 [main] DEBUG nextflow.Session - Observer factory: TowerFactory
+Nov-19 16:32:53.013 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
+Nov-19 16:32:53.340 [main] DEBUG nextflow.Session - Session start invoked
+Nov-19 16:32:54.495 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Nov-19 16:32:54.514 [main] DEBUG nextflow.Session - Workflow process names [dsl1]: prepare_matrix
+Nov-19 16:32:54.565 [PathVisitor-1] DEBUG nextflow.file.PathVisitor - files for syntax: glob; folder: /home/ec2-user/environment/hackathon/Hackathon_NextFlow_Nov2020/Maria_test/matrix_firstAnalysis/; pattern: *.pfm; options: [:]
+Nov-19 16:32:54.750 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Nov-19 16:32:54.750 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Nov-19 16:32:54.757 [main] DEBUG nextflow.executor.Executor - [warm up] executor > local
+Nov-19 16:32:54.763 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=2; memory=3.9 GB; capacity=2; pollInterval=100ms; dumpInterval=5m
+Nov-19 16:32:54.876 [main] DEBUG nextflow.script.ScriptRunner - > Await termination 
+Nov-19 16:32:54.876 [main] DEBUG nextflow.Session - Session await
+Nov-19 16:32:55.043 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Nov-19 16:32:55.052 [Task submitter] INFO  nextflow.Session - [23/2f0441] Submitted process > prepare_matrix (2)
+Nov-19 16:32:55.066 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Nov-19 16:32:55.067 [Task submitter] INFO  nextflow.Session - [b4/54e070] Submitted process > prepare_matrix (1)
+Nov-19 16:32:55.103 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 1; name: prepare_matrix (1); status: COMPLETED; exit: 0; error: -; workDir: /home/ec2-user/environment/hackathon/Hackathon_NextFlow_Nov2020/Maria_test/work/b4/54e0701894d07404ff9779d4e0bc84]
+Nov-19 16:32:55.197 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 2; name: prepare_matrix (2); status: COMPLETED; exit: 0; error: -; workDir: /home/ec2-user/environment/hackathon/Hackathon_NextFlow_Nov2020/Maria_test/work/23/2f04417a8671172d9450f4429a6058]
+Nov-19 16:32:55.205 [main] DEBUG nextflow.Session - Session await > all process finished
+Nov-19 16:32:55.206 [main] DEBUG nextflow.Session - Session await > all barriers passed
+Nov-19 16:32:55.218 [main] DEBUG nextflow.trace.WorkflowStatsObserver - Workflow completed > WorkflowStats[succeededCount=2; failedCount=0; ignoredCount=0; cachedCount=0; pendingCount=0; submittedCount=0; runningCount=0; retriesCount=0; abortedCount=0; succeedDuration=125ms; failedDuration=0ms; cachedDuration=0ms;loadCpus=0; loadMemory=0; peakRunning=2; peakCpus=2; peakMemory=0; ]
+Nov-19 16:32:55.239 [main] DEBUG nextflow.CacheDB - Closing CacheDB done
+Nov-19 16:32:55.253 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye
