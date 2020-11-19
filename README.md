@@ -2,7 +2,7 @@
 
 **Goal : Find regulatory SNP candidate (rSNP)**
 
-Does the SNP impact the surrounding sequence affinity with a TF ? (likelihood the TF will bind with this sequence)
+Does the SNP impact the sequence affinity with a TF ? (likelihood the TF will bind with this sequence)
 
 * Principle
 
