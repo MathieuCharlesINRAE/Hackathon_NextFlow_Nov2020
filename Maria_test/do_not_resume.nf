@@ -35,7 +35,7 @@ process prepare_matrix {
     """
 }
 
-// WHY when I launch 2 times the same script it regenerate the file and do not keep it in cache ?
+// personnal note : to not run again exact same process, we must use the -resume option.
 // How to group the 3 files in one element of the channel matrices_processed_ch
 
 // NOT WORKING, No such variant x
