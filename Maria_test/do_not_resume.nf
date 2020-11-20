@@ -6,15 +6,15 @@
 /* 
 params.matrixFolder = "$baseDir/matrix_firstAnalysis"
 
-matrix_ch = Channel.fromPath(params.matrixFolder"/*.pfm")
-                   .map { file -> [ file.name.replace(".pfm",""), file ] }
+matrix_ch = Channel.fromPath(params.matrixFolder"/*.pwm")
+                   .map { file -> [ file.name.replace(".pwm",""), file ] }
                   .view()
 */ 
 
-params.matrixFolder = "$baseDir/matrix_firstAnalysis/*.pfm"
+params.matrixFolder = "$baseDir/matrix_firstAnalysis/*.pwm"
 
 matrix_ch = Channel.fromPath(params.matrixFolder)
-                   .map { file -> [ file.name.replace(".pfm",""), file ] }
+                   .map { file -> [ file.name.replace(".pwm",""), file ] }
                   .view()
 
 process prepare_matrix {
@@ -65,3 +65,5 @@ process do_something {
 params.matrixFolder = "$baseDir/matrix_secondAnalysis"
 
 // but I do not want that matrices M00001 and M00002 are processed again
+// add an other channel for previously process matrices ?
+// use mix and collect
