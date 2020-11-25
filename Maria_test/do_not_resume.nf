@@ -16,6 +16,11 @@ matrix_ch = Channel.fromPath("${params.matrixFolder}/*.pwm")
                    .map { file -> [ file.name.replace(".pwm",""), file ] }
                  //.view()
 
+// SOLUTION 1 DE GESTION DES MATRICES PREPROCESSEES
+/*
+Idée, considérer les éléments du channel matrix_ch en un seul élément (collate() ).
+Puis retourner une chaîne de caractères qui ne contient que les path des matrices PWM à traîter.
+*/
 process check_if_preprocessed{
     
     input:
@@ -33,15 +38,14 @@ process check_if_preprocessed{
     """
 }
 
-matrices_toProcessed_ch.view()
+//matrices_toProcessed_ch.view()
 
-/*
 process prepare_matrix {
     
     publishDir "$baseDir/results/matrix_processed", mode: 'link'
     
     input :
-    tuple val(matrix_name), file(matrix_file) from matrix_ch
+    tuple val(matrix_name), file(matrix_file) from matrices_toProcessed_ch
     
     output:
     tuple val(matrix_name), file( "*.pfm"), file("*.score_distrib"), file("*.ratio_distrib") into matrices_processed_ch
@@ -57,12 +61,37 @@ process prepare_matrix {
 
 //matrices_processed_ch.view()
 
-// NOT WORKING, No such variant x
+// SOLUTION 2 DE GESTION DES MATRICES PREPROCESSEES:
 
+/* utiliser une fonction when avec une fonction groovy qui test si le fichier PFM dans le dossier "already preprocessed" n'existe pas déjà.
+
+process prepare_matrix {
+    
+    publishDir "$baseDir/results/matrix_processed", mode: 'link'
+    
+    input :
+    tuple val(matrix_name), file(matrix_file) from matrices_toProcessed_ch
+    
+    output:
+    tuple val(matrix_name), file( "*.pfm"), file("*.score_distrib"), file("*.ratio_distrib") into matrices_processed_ch
+
+    when:
+    File(params.matrixPreprocessedFolder + "/" + ${matrix_name} + ".pfm").exist() == false
+    
+    script:
+    """
+    touch ${matrix_name}.pfm
+    touch ${matrix_name}.score_distrib 
+    touch ${matrix_name}.ratio_distrib
+    """
+}
+*/
+// ANALYSE DE COMPARAISON DES VARIANTS
 variant_list = ["variant1","var2","var3"]
 
 variant_ch = Channel.fromList(variant_list)
 
+//  ajouter le channel des matrices déjà preprocesser : matrixPreprocessedFolder_ch
 compare_ch = variant_ch.combine(matrices_processed_ch)
 
 process do_something {
@@ -81,8 +110,6 @@ process do_something {
 }
 
 result_ch.view()
-
-// Now I want to use and other matrixFolder
 
 
 // but I do not want that matrices M00001 and M00002 are processed again
