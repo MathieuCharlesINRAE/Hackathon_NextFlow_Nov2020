@@ -52,13 +52,12 @@ process extractFastaFromSelectSNP {
     
     script:
     """
-    awk '{print \$1"\t"\$2-14"\t"\$2+14;}' $snp > $snp"_modif"
+    awk '{print \$1"\t"\$2-30"\t"\$2+29;}' $snp > $snp"_modif"
     bedtools getfasta -fi $genome -bed $snp"_modif" | paste - -  > $snp"_modif2"
-    paste $snp $snp"_modif2" > snp.filteredByWindows.fasta
+    paste $snp $snp"_modif2" | awk '{if (toupper(substr(\$8,30,1)) != toupper(\$5)){w++;} if (substr(\$4,1,2) == "rs"){ name = \$4;}else{name = "snp_"\$1"_"\$2;} print \$1"\t"\$2"\t"\$5"\t"\$6"\t"name"\t"\$8;}END{if (w>0){print w" warnings" > "warning.txt"}}' > snp.filteredByWindows.fasta
     """
 }
 
 //generateWindowsFromGtfOut.view()
 //intersectVariantWithWindowsOut.view()
 intersectVariantWithWindowsFastaOut.view()
-
