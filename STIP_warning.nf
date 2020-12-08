@@ -49,17 +49,17 @@ process extractFastaFromSelectSNP {
     
     output:
     file 'snp.filteredByWindows.fasta' into intersectVariantWithWindowsFastaOut
-    stdout into intersectVariantWarningOut
+    file 'warning.txt' into warning 
     
     script:
     """
     awk '{print \$1"\t"\$2-30"\t"\$2+29;}' $snp > $snp"_modif"
     bedtools getfasta -fi $genome -bed $snp"_modif" | paste - -  > $snp"_modif2"
-    paste $snp $snp"_modif2" | awk 'BEGIN{w=0}{if (toupper(substr(\$8,30,1)) != toupper(\$5)){w++;} if (substr(\$4,1,2) == "rs"){ name = \$4;}else{name = "snp_"\$1"_"\$2;} print \$1"\t"\$2"\t"\$5"\t"\$6"\t"name"\t"\$8 > "snp.filteredByWindows.fasta"}END{print w/NR}'
+    paste $snp $snp"_modif2" | awk -v warning='warning.txt' 'BEGIN{w=0}{if (toupper(substr(\$8,30,1)) != toupper(\$5)){w++;} if (substr(\$4,1,2) == "rs"){ name = \$4;}else{name = "snp_"\$1"_"\$2;} print \$1"\t"\$2"\t"\$5"\t"\$6"\t"name"\t"\$8;}END{print w > warning}' > snp.filteredByWindows.fasta
     """
 }
 
 //generateWindowsFromGtfOut.view()
 //intersectVariantWithWindowsOut.view()
-//intersectVariantWithWindowsFastaOut.view()
-intersectVariantWarningOut.view()
+intersectVariantWithWindowsFastaOut.view()
+warning.view()
